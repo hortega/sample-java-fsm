@@ -1,0 +1,63 @@
+apply plugin: "jetty"
+apply plugin: "groovy"
+apply plugin: 'idea'
+apply plugin: 'war'
+
+repositories {
+    mavenLocal()
+    mavenCentral()
+}
+
+buildscript {
+    repositories {
+        mavenCentral()
+        jcenter()
+    }
+
+}
+
+dependencies {
+    compile('commons-dbcp:commons-dbcp:1.4')
+
+    def springVersion = '4.1.1.RELEASE'
+    compile("org.springframework:spring-core:${springVersion}") {
+        exclude(module: 'commons-logging')
+    }
+    compile("org.springframework:spring-context-support:${springVersion}") {
+        exclude(module: 'commons-logging')
+    }
+    compile("org.springframework:spring-webmvc:${springVersion}")
+    compile("org.springframework:spring-jdbc:${springVersion}")
+
+    // Jersey
+    def jerseyVersion = '2.8'
+    compile("org.glassfish.jersey.core:jersey-server:${jerseyVersion}")
+    compile("org.glassfish.jersey.core:jersey-client:${jerseyVersion}")
+
+    compile('mysql:mysql-connector-java:5.1.34')
+
+    compile("org.glassfish.jersey.ext:jersey-spring3:${jerseyVersion}") {
+        exclude(module: 'junit')
+        exclude(module: 'spring-core')
+        exclude(module: 'spring-beans')
+        exclude(module: 'spring-web')
+        exclude(module: 'spring-context')
+    }
+
+    compile('javax.ws.rs:javax.ws.rs-api:2.0')
+    compile('javax.inject:javax.inject:1')
+    compile(group: 'javax.servlet', name: 'javax.servlet-api', version: '3.0.1')
+
+
+
+    testCompile(group: 'org.codehaus.groovy', name: 'groovy-all', version: '2.4.5', classifier: 'indy')
+    testCompile('org.spockframework:spock-core:1.0-groovy-2.4') {
+        exclude(module: 'groovy-all')
+    }
+    testCompile 'cglib:cglib-nodep:2.2'
+    testCompile('junit:junit:4.11')
+    testCompile('com.github.rest-driver:rest-server-driver:1.1.41')
+    testCompile('org.objenesis:objenesis:2.1')
+
+}
+

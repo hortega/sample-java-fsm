@@ -1,0 +1,12 @@
+.idea/
+**/node_modules/**
+*.log
+**/uploads/**
+**/build/**
+**/target/**
+**/.gradle/**
+*.iml
+*.bin
+*.lock
+**/.gradle/**
+
